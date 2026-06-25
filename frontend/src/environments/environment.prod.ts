@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tu-backend.onrender.com/api',
-  uploadsUrl: 'https://tu-backend.onrender.com',
+  apiUrl: 'https://aisha-pereyra-sole-tp-2-prog-4-2026.vercel.app/api',
 };
