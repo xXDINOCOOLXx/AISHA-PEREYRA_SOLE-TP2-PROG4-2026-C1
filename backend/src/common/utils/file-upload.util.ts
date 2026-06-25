@@ -39,5 +39,8 @@ export function buildFileUrl(filename: string) {
 }
 
 export function getUploadPath() {
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    return '/tmp/uploads';
+  }
   return process.env.UPLOAD_PATH || join(process.cwd(), 'uploads');
 }
