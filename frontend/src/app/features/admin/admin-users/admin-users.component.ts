@@ -21,9 +21,6 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 function passwordMatch(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
   const repeat = control.get('repeatPassword')?.value;
-  if (!password || !repeat) {
-    return null;
-  }
   return password === repeat ? null : { passwordMismatch: true };
 }
 

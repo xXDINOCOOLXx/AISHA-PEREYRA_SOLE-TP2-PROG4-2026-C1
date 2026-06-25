@@ -86,8 +86,12 @@
                 [highlightText]="search"
               ></span>
             </td>
-            <td>{{ user.correo }}</td>
-            <td>{{ user.nombreUsuario }}</td>
+            <td>
+              <span [appHighlight]="user.correo" [highlightText]="search"></span>
+            </td>
+            <td>
+               <span [appHighlight]="user.nombreUsuario" [highlightText]="search"></span>
+            </td>
             <td>{{ user.perfil | roleLabel }}</td>
             <td>{{ user.activo ? 'Activo' : 'Deshabilitado' }}</td>
             <td>
