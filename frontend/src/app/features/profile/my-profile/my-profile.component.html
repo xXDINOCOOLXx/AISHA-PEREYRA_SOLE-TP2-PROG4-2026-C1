@@ -65,7 +65,7 @@
       }
       @for (post of posts; track post.id) {
         <app-post-card [post]="post" />
-        @if (postComments[post.id]?.length) {
+        @if (postComments[post.id]) {
           <div class="mini-comments">
             <h4>Comentarios recientes</h4>
             @for (c of postComments[post.id]; track c.id) {
