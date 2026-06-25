@@ -1,0 +1,106 @@
+<div class="admin-page">
+  <header class="admin-header">
+    <h1>Gestión de usuarios</h1>
+    <button class="btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancelar' : 'Nuevo usuario' }}
+    </button>
+  </header>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Buscar usuario</mat-label>
+    <input matInput [(ngModel)]="search" name="search" />
+  </mat-form-field>
+
+  @if (showForm) {
+    <div class="form-card create-form">
+      <h2>Crear usuario</h2>
+      <form [formGroup]="form" (ngSubmit)="createUser()">
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" />
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="correo" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="nombreUsuario" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Repetir contraseña</mat-label>
+          <input matInput type="password" formControlName="repeatPassword" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput type="date" formControlName="fechaNacimiento" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput rows="2" formControlName="descripcion"></textarea>
+        </mat-form-field>
+        <div class="file-field">
+          <label>Imagen de perfil</label>
+          <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        </div>
+        <div class="role-field">
+          <label>Perfil:</label>
+          <mat-radio-group formControlName="perfil">
+            <mat-radio-button value="usuario">Usuario</mat-radio-button>
+            <mat-radio-button value="administrador">Administrador</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <button class="btn-primary" type="submit">Crear usuario</button>
+      </form>
+    </div>
+  }
+
+  <div class="users-table form-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Usuario</th>
+          <th>Perfil</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of filteredUsers; track user.id) {
+          <tr [class.inactive]="!user.activo">
+            <td>
+              <span
+                [appHighlight]="user.nombre + ' ' + user.apellido"
+                [highlightText]="search"
+              ></span>
+            </td>
+            <td>{{ user.correo }}</td>
+            <td>{{ user.nombreUsuario }}</td>
+            <td>{{ user.perfil | roleLabel }}</td>
+            <td>{{ user.activo ? 'Activo' : 'Deshabilitado' }}</td>
+            <td>
+              <button
+                class="btn-secondary"
+                (click)="toggleUser(user)"
+              >
+                {{ user.activo ? 'Deshabilitar' : 'Reactivar' }}
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

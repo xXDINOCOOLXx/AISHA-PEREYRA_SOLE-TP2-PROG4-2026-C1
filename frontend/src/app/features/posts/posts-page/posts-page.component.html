@@ -1,0 +1,56 @@
+<div class="posts-page">
+  <header class="posts-page__header">
+    <h1>Publicaciones</h1>
+    <div class="posts-page__controls">
+      <mat-form-field appearance="outline" class="sort-field">
+        <mat-label>Ordenar por</mat-label>
+        <mat-select [value]="sort" (selectionChange)="onSortChange($event.value)">
+          <mat-option value="fecha">Fecha</mat-option>
+          <mat-option value="likes">Me gusta</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="btn-primary" (click)="showForm = !showForm">
+        {{ showForm ? 'Cancelar' : 'Nueva publicación' }}
+      </button>
+    </div>
+  </header>
+
+  @if (showForm) {
+    <div class="form-card create-form">
+      <h2>Crear publicación</h2>
+      <form [formGroup]="createForm" (ngSubmit)="createPost()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="titulo" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mensaje</mat-label>
+          <textarea matInput rows="4" formControlName="mensaje"></textarea>
+        </mat-form-field>
+        <div class="file-field">
+          <label>Imagen (opcional)</label>
+          <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        </div>
+        <button class="btn-primary" type="submit">Publicar</button>
+      </form>
+    </div>
+  }
+
+  @if (posts.length === 0 && !loading) {
+    <div class="empty-state">
+      <p>No hay publicaciones todavía. ¡Sé el primero en publicar!</p>
+    </div>
+  }
+
+  @for (post of posts; track post.id) {
+    <app-post-card [post]="post" (deleted)="loadPosts(true)" />
+  }
+
+  @if (hasMore) {
+    <div class="load-more">
+      <button class="btn-secondary" (click)="loadMore()" [disabled]="loading">
+        {{ loading ? 'Cargando...' : 'Cargar más' }}
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,31 @@
+<div class="admin-page">
+  <header class="admin-header">
+    <h1>Estadísticas</h1>
+    <form [formGroup]="filterForm" (ngSubmit)="loadCharts()" class="filter-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Desde</mat-label>
+        <input matInput type="date" formControlName="desde" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Hasta</mat-label>
+        <input matInput type="date" formControlName="hasta" />
+      </mat-form-field>
+      <button class="btn-primary" type="submit">Actualizar</button>
+    </form>
+  </header>
+
+  <div class="charts-grid">
+    <div class="chart-card form-card">
+      <h2>Publicaciones por usuario</h2>
+      <canvas #barChart></canvas>
+    </div>
+    <div class="chart-card form-card">
+      <h2>Comentarios en el tiempo</h2>
+      <canvas #lineChart></canvas>
+    </div>
+    <div class="chart-card form-card">
+      <h2>Comentarios por publicación</h2>
+      <canvas #pieChart></canvas>
+    </div>
+  </div>
+</div>

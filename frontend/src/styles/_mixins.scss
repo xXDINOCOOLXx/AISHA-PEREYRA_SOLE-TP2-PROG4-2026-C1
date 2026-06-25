@@ -1,0 +1,20 @@
+@use 'variables' as *;
+
+@mixin card {
+  background: $surface;
+  border-radius: $radius;
+  border: 1.5px solid $border;
+  border-left: 4px solid $primary;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin page-container($max: $max-feed) {
+  max-width: $max;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}

@@ -1,0 +1,30 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/components';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: $font-family;
+  background: $bg;
+  background-image:
+    radial-gradient(ellipse at 15% 85%, rgba(44, 110, 53, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(184, 124, 24, 0.1) 0%, transparent 55%);
+  color: $text;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}

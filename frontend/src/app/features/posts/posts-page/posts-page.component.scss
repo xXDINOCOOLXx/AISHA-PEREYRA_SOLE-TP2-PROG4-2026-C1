@@ -1,0 +1,46 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.posts-page {
+  @include page-container;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .sort-field {
+    width: 160px;
+  }
+
+  .create-form {
+    margin-bottom: 24px;
+
+    .full-width {
+      width: 100%;
+    }
+
+    .file-field {
+      margin-bottom: 16px;
+    }
+  }
+
+  .load-more {
+    text-align: center;
+    margin-top: 16px;
+  }
+}

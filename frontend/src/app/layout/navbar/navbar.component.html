@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a routerLink="/publicaciones" class="navbar__brand">
+      <span class="navbar__logo">DC</span>
+      DINOCOQUITOS
+    </a>
+
+    <button class="navbar__toggle" (click)="toggleMenu()" aria-label="Menú">
+      ☰
+    </button>
+
+    <div class="navbar__links" [class.open]="menuOpen">
+      <a routerLink="/publicaciones" routerLinkActive="active">Publicaciones</a>
+      <a routerLink="/perfil" routerLinkActive="active">Mi Perfil</a>
+      <ng-container *appAdminOnly>
+        <a routerLink="/admin/usuarios" routerLinkActive="active">Usuarios</a>
+        <a routerLink="/admin/estadisticas" routerLinkActive="active">Estadísticas</a>
+      </ng-container>
+      <button class="navbar__logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+
+    @if (auth.currentUser(); as user) {
+      <a routerLink="/perfil" class="navbar__avatar">
+        <img [src]="auth.imageUrl(user.imagenPerfilUrl)" [alt]="user.nombre" />
+      </a>
+    }
+  </div>
+</nav>

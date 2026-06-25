@@ -1,0 +1,57 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.btn-primary {
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  color: $primary;
+  border: 1.5px solid $primary;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background: transparent;
+  color: $danger;
+  border: 1.5px solid $danger;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.form-card {
+  @include card;
+  padding: 32px;
+}
+
+.field-error {
+  color: $danger;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.empty-state {
+  @include card;
+  @include flex-center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 48px 24px;
+  color: $text-muted;
+  text-align: center;
+}

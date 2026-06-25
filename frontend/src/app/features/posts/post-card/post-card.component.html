@@ -1,0 +1,37 @@
+<article class="post-card">
+  <header class="post-card__header">
+    <img
+      [src]="auth.imageUrl(post.autor.imagenPerfilUrl)"
+      [alt]="post.autor.nombre"
+      class="post-card__avatar"
+    />
+    <div>
+      <strong>{{ post.autor.nombre }} {{ post.autor.apellido }}</strong>
+      <span class="post-card__time">{{ post.createdAt | timeAgo }}</span>
+    </div>
+  </header>
+
+  <a [routerLink]="['/publicaciones', post.id]" class="post-card__link">
+    <h2>{{ post.titulo }}</h2>
+    <p>{{ post.mensaje | truncate: 200 }}</p>
+    @if (post.imagenUrl) {
+      <img [src]="imageUrl(post.imagenUrl)" [alt]="post.titulo" class="post-card__image" />
+    }
+  </a>
+
+  <footer class="post-card__actions">
+    <button
+      class="like-btn"
+      [class.active]="post.likedByMe"
+      (click)="toggleLike()"
+    >
+      {{ post.likedByMe ? '♥' : '♡' }} {{ post.likesCount }} Me gusta
+    </button>
+    <a [routerLink]="['/publicaciones', post.id]" class="btn-secondary">
+      Comentar
+    </a>
+    @if (canDelete) {
+      <button class="btn-danger" (click)="deletePost()">Eliminar</button>
+    }
+  </footer>
+</article>

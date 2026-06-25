@@ -1,0 +1,65 @@
+<div class="post-detail">
+  <a routerLink="/publicaciones" class="back-link">← Volver al feed</a>
+
+  @if (post) {
+    <app-post-card [post]="post" />
+
+    <section class="comments-section form-card">
+      <h2>Comentarios ({{ commentsTotal }})</h2>
+
+      <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Escribí un comentario</mat-label>
+          <textarea matInput rows="2" formControlName="mensaje" appAutoFocus></textarea>
+        </mat-form-field>
+        <button class="btn-primary" type="submit">Comentar</button>
+      </form>
+
+      @for (comment of comments; track comment.id) {
+        <div class="comment">
+          <img
+            [src]="auth.imageUrl(comment.autor.imagenPerfilUrl)"
+            [alt]="comment.autor.nombre"
+            class="comment__avatar"
+          />
+          <div class="comment__body">
+            <div class="comment__header">
+              <strong>{{ comment.autor.nombre }} {{ comment.autor.apellido }}</strong>
+              <span>{{ comment.createdAt | timeAgo }}</span>
+              @if (comment.modificado) {
+                <span class="edited">(editado)</span>
+              }
+            </div>
+
+            @if (editingId === comment.id) {
+              <form [formGroup]="editForm" (ngSubmit)="saveEdit(comment.id)">
+                <mat-form-field appearance="outline" class="full-width">
+                  <textarea matInput rows="2" formControlName="mensaje" appAutoFocus></textarea>
+                </mat-form-field>
+                <div class="edit-actions">
+                  <button class="btn-primary" type="submit">Guardar</button>
+                  <button class="btn-secondary" type="button" (click)="cancelEdit()">
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            } @else {
+              <p>{{ comment.mensaje }}</p>
+              @if (comment.autor.id === auth.currentUser()?.id) {
+                <button class="edit-btn" (click)="startEdit(comment)">Editar</button>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      @if (hasMoreComments) {
+        <div class="load-more">
+          <button class="btn-secondary" (click)="loadMoreComments()">
+            Cargar más comentarios
+          </button>
+        </div>
+      }
+    </section>
+  }
+</div>

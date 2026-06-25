@@ -1,0 +1,83 @@
+<div class="auth-page">
+  <div class="form-card auth-card">
+    <h1>Crear cuenta</h1>
+    <p class="subtitle">Completá tus datos para unirte</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" />
+          @if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
+            <mat-error>El nombre es obligatorio</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellido" />
+          @if (form.get('apellido')?.touched && form.get('apellido')?.invalid) {
+            <mat-error>El apellido es obligatorio</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" formControlName="correo" />
+        @if (form.get('correo')?.touched && form.get('correo')?.invalid) {
+          <mat-error>Ingresá un correo válido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput formControlName="nombreUsuario" />
+        @if (form.get('nombreUsuario')?.touched && form.get('nombreUsuario')?.invalid) {
+          <mat-error>El nombre de usuario es obligatorio</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" />
+        @if (form.get('password')?.touched && form.get('password')?.invalid) {
+          <mat-error>Mín. 8 caracteres, 1 mayúscula y 1 número</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Repetir contraseña</mat-label>
+        <input matInput type="password" formControlName="repeatPassword" />
+        @if (form.hasError('passwordMismatch') && form.get('repeatPassword')?.touched) {
+          <mat-error>Las contraseñas no coinciden</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput type="date" formControlName="fechaNacimiento" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descripción breve</mat-label>
+        <textarea matInput rows="3" formControlName="descripcion"></textarea>
+      </mat-form-field>
+
+      <div class="file-field">
+        <label>Imagen de perfil</label>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        @if (imagenError) {
+          <span class="field-error">{{ imagenError }}</span>
+        }
+      </div>
+
+      <button class="btn-primary full-width" type="submit" [disabled]="loading">
+        {{ loading ? 'Registrando...' : 'Registrarse' }}
+      </button>
+    </form>
+
+    <p class="footer-link">
+      ¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a>
+    </p>
+  </div>
+</div>

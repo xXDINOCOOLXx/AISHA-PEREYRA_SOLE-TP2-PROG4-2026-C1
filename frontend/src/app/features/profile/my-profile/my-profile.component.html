@@ -1,0 +1,82 @@
+<div class="profile-page">
+  @if (auth.currentUser(); as user) {
+    <div class="profile-header form-card">
+      <img
+        [src]="auth.imageUrl(user.imagenPerfilUrl)"
+        [alt]="user.nombre"
+        class="profile-avatar"
+      />
+      <div class="profile-info">
+        <h1>{{ user.nombre }} {{ user.apellido }}</h1>
+        <p class="username">{{ '@' + user.nombreUsuario }}</p>
+        <p class="description">{{ user.descripcion }}</p>
+        <button class="btn-secondary" (click)="editing = !editing">
+          {{ editing ? 'Cancelar' : 'Editar perfil' }}
+        </button>
+      </div>
+    </div>
+
+    @if (editing) {
+      <div class="form-card edit-form">
+        <h2>Editar perfil</h2>
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput formControlName="apellido" />
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="nombreUsuario" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput type="date" formControlName="fechaNacimiento" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput rows="3" formControlName="descripcion"></textarea>
+          </mat-form-field>
+          <div class="file-field">
+            <label>Nueva imagen de perfil (opcional)</label>
+            <input type="file" accept="image/*" (change)="onFileChange($event)" />
+          </div>
+          <button class="btn-primary" type="submit">Guardar cambios</button>
+        </form>
+      </div>
+    }
+
+    <section class="recent-posts">
+      <h2>Mis últimas publicaciones</h2>
+      @if (posts.length === 0) {
+        <div class="empty-state">
+          <p>Todavía no publicaste nada.</p>
+          <a routerLink="/publicaciones" class="btn-primary">Ir a publicaciones</a>
+        </div>
+      }
+      @for (post of posts; track post.id) {
+        <app-post-card [post]="post" />
+        @if (postComments[post.id]?.length) {
+          <div class="mini-comments">
+            <h4>Comentarios recientes</h4>
+            @for (c of postComments[post.id]; track c.id) {
+              <div class="mini-comment">
+                <strong>{{ c.autor.nombre }}:</strong> {{ c.mensaje }}
+                <span>{{ c.createdAt | timeAgo }}</span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </section>
+  }
+</div>
