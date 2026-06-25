@@ -102,4 +102,18 @@ export class RegistroComponent {
       },
     });
   }
+  ngOnInit(): void {
+    this.form.get('password')?.valueChanges.subscribe(() => {
+      const repeatControl = this.form.get('repeatPassword');
+      if (repeatControl?.value) {
+        repeatControl.updateValueAndValidity({ onlySelf: false, emitEvent: false });
+        this.form.updateValueAndValidity();
+      }
+    });
+
+    this.form.get('repeatPassword')?.valueChanges.subscribe(() => {
+      this.form.updateValueAndValidity();
+    });
+  }
+
 }

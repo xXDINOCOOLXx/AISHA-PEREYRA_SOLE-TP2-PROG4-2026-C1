@@ -73,15 +73,42 @@ export class PublicacionesService {
       filter.autor = new Types.ObjectId(params.userId);
     }
 
-    const sort: Record<string, 1 | -1> =
-      params.sort === 'likes'
-        ? { likes: -1, createdAt: -1 }
-        : { createdAt: -1 };
+    if (params.sort === 'likes') {
+      const [items, total] = await Promise.all([
+        this.publicacionModel.aggregate([
+          { $match: filter },
+          { $addFields: { _likesCount: { $size: '$likes' } } },
+          { $sort: { _likesCount: -1, createdAt: -1 } },
+          { $skip: offset },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: 'users',
+              localField: 'autor',
+              foreignField: '_id',
+              as: '_autorArr',
+            },
+          },
+          { $addFields: { autor: { $arrayElemAt: ['$_autorArr', 0] } } },
+          { $project: { _autorArr: 0, _likesCount: 0 } },
+        ]),
+        this.publicacionModel.countDocuments(filter),
+      ]);
+
+      return {
+        items: items.map((p) =>
+          this.mapPublicacion(p as unknown as PublicacionDocument, params.currentUserId),
+        ),
+        total,
+        offset,
+        limit,
+      };
+    }
 
     const [items, total] = await Promise.all([
       this.publicacionModel
         .find(filter)
-        .sort(sort)
+        .sort({ createdAt: -1 })
         .skip(offset)
         .limit(limit)
         .populate('autor', 'nombre apellido nombreUsuario imagenPerfilUrl'),

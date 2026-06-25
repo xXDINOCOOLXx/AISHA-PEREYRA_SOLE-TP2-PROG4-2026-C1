@@ -107,7 +107,7 @@ export class PostsPageComponent implements OnInit {
         this.loadPosts(true);
       },
       error: (err) => {
-        const msg = err.error?.message?.[0] || 'Error al crear publicación';
+        const msg = err.error?.message?.[0] || 'Error al crear la publicación';
         this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
       },
     });

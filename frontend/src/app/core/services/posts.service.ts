@@ -25,6 +25,7 @@ export class PostsService {
   }
 
   obtener(id: string): Observable<Post> {
+    const data = this.http.get<Post>(`${this.base}/${id}`);
     return this.http.get<Post>(`${this.base}/${id}`);
   }
 

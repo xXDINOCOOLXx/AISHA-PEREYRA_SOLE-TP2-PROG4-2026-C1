@@ -25,6 +25,11 @@ a {
   text-decoration: none;
 }
 
+.mat-mdc-form-field {
+  outline-color:RED !important;
+  border-color: rgb(184, 137, 137) !important;
+}
+
 img {
   max-width: 100%;
 }

@@ -7,7 +7,7 @@
       <div class="row">
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre" />
+          <input matInput type="text" formControlName="nombre" />
           @if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
             <mat-error>El nombre es obligatorio</mat-error>
           }
@@ -45,13 +45,16 @@
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Repetir contraseña</mat-label>
-        <input matInput type="password" formControlName="repeatPassword" />
-        @if (form.hasError('passwordMismatch') && form.get('repeatPassword')?.touched) {
-          <mat-error>Las contraseñas no coinciden</mat-error>
-        }
-      </mat-form-field>
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>Repetir contraseña</mat-label>
+  <input matInput type="password" formControlName="repeatPassword" />
+  @if (form.hasError('passwordMismatch') && form.get('repeatPassword')?.touched) {
+    <mat-error>Las contraseñas no coinciden</mat-error>
+  }
+  @if (form.get('repeatPassword')?.touched && form.get('repeatPassword')?.hasError('required')) {
+    <mat-error>Debes repetir la contraseña</mat-error>
+  }
+</mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Fecha de nacimiento</mat-label>

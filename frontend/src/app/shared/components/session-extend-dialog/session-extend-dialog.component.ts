@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-session-extend-dialog',
@@ -9,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
   template: `
     <h2 mat-dialog-title>Sesión por vencer</h2>
     <mat-dialog-content>
-      <p>Quedan 5 minutos de sesión. ¿Deseás extenderla?</p>
+      <p>Quedan 5 minutos de sesión. ¿Desea extenderla?</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="close(false)">No, salir</button>
@@ -22,7 +23,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class SessionExtendDialogComponent {
   constructor(private dialogRef: MatDialogRef<SessionExtendDialogComponent>) {}
 
+  authService = inject(AuthService);
+
   close(extend: boolean): void {
     this.dialogRef.close(extend);
+    this.authService.logout();
   }
 }
