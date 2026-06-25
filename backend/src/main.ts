@@ -17,6 +17,13 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+  });
+
   app.useGlobalFilters(new HttpExceptionFilter());
   const port = process.env.PORT || 3000;
   await app.listen(port);
