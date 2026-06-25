@@ -14,7 +14,10 @@ async function bootstrap() {
     }),
   );
 app.enableCors({
-    origin: 'aisha-pereyra-sole-tp-2-prog-4-2026-gules.vercel.app',
+    origin: [
+      'https://aisha-pereyra-sole-tp-2-prog-4-2026-gules.vercel.app',
+      'https://aisha-pereyra-sole-tp-2-prog-4-2026.vercel.app',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
