@@ -15,8 +15,9 @@ async function bootstrap() {
   );
 app.enableCors({
     origin: [
+      'https:localhost:4200',
       'https://aisha-pereyra-sole-tp-2-prog-4-2026-gules.vercel.app',
-      'https://aisha-pereyra-sole-tp-2-prog-4-2026.vercel.app',
+      'https://aisha-pereyra-sole-tp-2-prog-4-2026-c1-annr3bpbo.vercel.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
