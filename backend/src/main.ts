@@ -21,7 +21,7 @@ app.enableCors({
   });
 
   app.useGlobalFilters(new HttpExceptionFilter());
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT ?? 3000;
   await app.listen(port);
 }
 bootstrap();
