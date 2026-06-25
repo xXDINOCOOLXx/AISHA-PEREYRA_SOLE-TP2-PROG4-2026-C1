@@ -2,7 +2,7 @@
   <a routerLink="/publicaciones" class="back-link">← Volver al inicio</a>
 
   @if (post) {
-    <app-post-card [post]="post" />
+    <app-post-card [post]="post" [fullContent]="true" />
 
     <section class="comments-section form-card">
       <h2>Comentarios ({{ commentsTotal }})</h2>

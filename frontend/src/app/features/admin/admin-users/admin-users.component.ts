@@ -17,6 +17,7 @@ import { UsersService } from '../../../core/services/users.service';
 import { RoleLabelPipe } from '../../../shared/pipes/role-label.pipe';
 import { HighlightDirective } from '../../../shared/directives/highlight.directive';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { AutoFocusDirective } from '../../../shared/directives/auto-focus.directive';
 
 function passwordMatch(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
@@ -35,6 +36,7 @@ function passwordMatch(control: AbstractControl): ValidationErrors | null {
     MatRadioModule,
     RoleLabelPipe,
     HighlightDirective,
+    AutoFocusDirective,
   ],
   templateUrl: './admin-users.component.html',
   styleUrl: './admin-users.component.scss',

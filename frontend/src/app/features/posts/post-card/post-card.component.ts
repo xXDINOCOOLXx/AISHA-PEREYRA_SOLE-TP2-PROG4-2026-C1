@@ -20,7 +20,8 @@ export class PostCardComponent {
   @Input({ required: true }) post!: Post;
   @Output() changed = new EventEmitter<void>();
   @Output() deleted = new EventEmitter<void>();
-
+  @Input() fullContent = false;
+  
   private postsService = inject(PostsService);
   auth = inject(AuthService);
   private dialog = inject(MatDialog);

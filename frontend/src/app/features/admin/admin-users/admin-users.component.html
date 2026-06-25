@@ -8,7 +8,7 @@
 
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Buscar usuario</mat-label>
-    <input matInput [(ngModel)]="search" name="search" />
+    <input matInput appAutoFocus [(ngModel)]="search" name="search" />
   </mat-form-field>
 
   @if (showForm) {
@@ -90,7 +90,7 @@
               <span [appHighlight]="user.correo" [highlightText]="search"></span>
             </td>
             <td>
-               <span [appHighlight]="user.nombreUsuario" [highlightText]="search"></span>
+              <span [appHighlight]="user.nombreUsuario" [highlightText]="search"></span>
             </td>
             <td>{{ user.perfil | roleLabel }}</td>
             <td>{{ user.activo ? 'Activo' : 'Deshabilitado' }}</td>

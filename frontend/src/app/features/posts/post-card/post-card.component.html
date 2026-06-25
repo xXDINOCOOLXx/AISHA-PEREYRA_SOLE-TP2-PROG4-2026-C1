@@ -13,7 +13,7 @@
 
   <a [routerLink]="['/publicaciones', post.id]" class="post-card__link">
     <h2>{{ post.titulo }}</h2>
-    <p>{{ post.mensaje | truncate: 200 }}</p>
+    <p>{{ fullContent ? post.mensaje : (post.mensaje | truncate: 50) }}</p>
     @if (post.imagenUrl) {
       <img [src]="imageUrl(post.imagenUrl)" [alt]="post.titulo" class="post-card__image" />
     }
